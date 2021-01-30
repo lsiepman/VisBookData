@@ -1,16 +1,18 @@
 server <- function(input, output) {
   router$server(input, output)
 
-  output$contents <- renderTable({
+  output$data <- renderDataTable({
     file <- input$data
     ext <- tools::file_ext(file$datapath)
 
     req(file)
     validate(need(ext == "csv", "Please upload a csv file"))
 
-    browser()
     data <- read.csv(file$datapath, check.names = F)
-    process_data(data)
-    
+    data <- process_data(data)
+  })
+  
+  observeEvent(input$data, {
+    change_page("visualisations")
   })
 }

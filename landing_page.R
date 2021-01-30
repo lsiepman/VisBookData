@@ -1,6 +1,5 @@
 landing_page <- div(
-    titlePanel("Home"),
-    h2("Please upload your Goodreads export"),
+    h4("Please upload your Goodreads export"),
     fluidPage(
         sidebarLayout(
             sidebarPanel(

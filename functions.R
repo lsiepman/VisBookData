@@ -4,7 +4,8 @@ process_data <- function(data) {
   processed <- data %>% 
     mutate(`Original Publication Year` = ifelse(is.na(`Original Publication Year`) &
                                                   !is.na(`Year Published`), 
-                                                `Year Published`, NA)) %>% 
+                                                `Year Published`, 
+                                                `Original Publication Year`)) %>% 
     select(`Book Id`, Title, `Author l-f`, 
            `Additional Authors`, ISBN, ISBN13,
            `My Rating`, `Average Rating`, Publisher,

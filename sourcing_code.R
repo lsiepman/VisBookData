@@ -1,4 +1,7 @@
 source("functions.R")
+
 source("landing_page.R")
+source("visualisation_page.R")
+
 source("server.R")
 source("ui.R")
