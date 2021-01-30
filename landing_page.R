@@ -4,7 +4,7 @@ landing_page <- div(
     fluidPage(
         sidebarLayout(
             sidebarPanel(
-            fileInput("file1", "Choose CSV File", accept = ".csv"),
+            fileInput("data", "Choose CSV File", accept = ".csv"),
             ),
             mainPanel(
             tableOutput("contents")
