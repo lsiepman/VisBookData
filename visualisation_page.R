@@ -4,7 +4,7 @@ vis_page <- div(
   
                         mainPanel(
                           titlePanel("Visualisations"),
-                          dataTableOutput('data')
+                          DTOutput('data')
                         )
               ),
               
