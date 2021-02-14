@@ -1,6 +1,24 @@
 vis_page <- div(
-  titlePanel("Visualisations"),
-  dataTableOutput('data')
-  # print("test"),
-  # print(data)
+   navbarPage("VisBookData",
+              tabPanel("View data",
+  
+                        mainPanel(
+                          titlePanel("Visualisations"),
+                          dataTableOutput('data')
+                        )
+              ),
+              
+              tabPanel("Statistics",
+                       mainPanel(
+                         h1("Stats page")
+                       )
+              ),
+              
+              tabPanel("Graphs",
+                       mainPanel(
+                         h1("graphs page")
+                       )
+              )
+              
+  )
 )
