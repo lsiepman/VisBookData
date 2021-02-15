@@ -1,5 +1,6 @@
 library(shiny)
 library(shiny.router)
+library(shinyWidgets)
 library(dplyr)
 library(stringr)
 library(DT)
