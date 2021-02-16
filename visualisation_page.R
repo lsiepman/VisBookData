@@ -1,11 +1,16 @@
 vis_page <- div(
    navbarPage("VisBookData",
               tabPanel("View data",
-  
-                        mainPanel(
+                      fluidRow(
+                        column(style = "background-color:white;", width = 12,
                           titlePanel("Visualisations"),
-                          DTOutput('data')
-                        )
+                          DTOutput('data', width = "100%")
+                        )),
+                          br(),
+                         
+                       absolutePanel("Created by Laura Siepman", 
+                                     style = "background-color:white;", 
+                                     bottom = 0, left = 0, fixed = TRUE)
               ),
               
               tabPanel("Statistics",
@@ -19,6 +24,5 @@ vis_page <- div(
                          h1("graphs page")
                        )
               )
-              
   )
 )
