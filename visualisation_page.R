@@ -20,9 +20,29 @@ vis_page <- div(
               ),
               
               tabPanel("Graphs",
-                       mainPanel(
+                       sidebarLayout(
+                         sidebarPanel(
+                           
+                           titlePanel("Desired Program Characteristics"),
+                           p("date read"),
+                           p("date published"),
+                           p("shelves"),
+                           p("read count")
+                           
+                           
+                           
+                           
+                           
+                         
+                          ),
+                       mainPanel(style = "background-color:white;",
                          h1("graphs page")
-                       )
+                       )),
+                       br(),
+                       
+                       absolutePanel("Created by Laura Siepman", 
+                                     style = "background-color:white;", 
+                                     bottom = 0, left = 0, fixed = TRUE)
               )
   )
 )
