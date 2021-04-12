@@ -1,6 +1,7 @@
 router <- make_router(
-  route("/", landing_page),
-  route("visualisations", vis_page)
+  # route("/", landing_page),
+  # route("visualisations", vis_page)
+  route("/", vis_page)
 )
 
 ui <- fluidPage(
