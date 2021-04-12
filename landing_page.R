@@ -8,7 +8,9 @@ landing_page <- div(
                 br(),
                 h3("Please upload your Goodreads export"),
                 br(),
-                fileInput("data", "Choose CSV File", accept = ".csv")
+                fileInput(inputId = "filedata",
+                          label = "Upload data. Choose csv file",
+                          accept = c(".csv")),
             ),
         )
     ),

@@ -9,7 +9,8 @@ process_data <- function(data) {
                                                   !is.na(`Year Published`), 
                                                 `Year Published`, 
                                                 `Original Publication Year`),
-           ISBN13 = ifelse(ISBN13 == '=""', NA, str_extract(ISBN13, "\\d+"))) %>% 
+           ISBN13 = ifelse(ISBN13 == '=""', NA, str_extract(ISBN13, "\\d+")),
+           `Exclusive Shelf` = as.factor(`Exclusive Shelf`)) %>% 
     select(ISBN13, Title, `Author l-f`, 
            `My Rating`, `Average Rating`, 
            `Number of Pages`, `Original Publication Year`,
