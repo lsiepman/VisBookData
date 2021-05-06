@@ -12,4 +12,6 @@ server <- function(input, output) {
   observeEvent(input$data, {
     change_page("visualisations")
   })
+  
+  output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(data)})
 }

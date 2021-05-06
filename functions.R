@@ -29,3 +29,16 @@ process_data <- function(data) {
            `exclusive shelf` = `Exclusive Shelf`,
            `read count` = `Read Count`)
 }
+
+date_pub_vs_read <- function(data) {
+
+  plot_dates <- ggplot(data, aes(x = as.Date(date_read), y = publication_year, color = `read count`)) +
+    geom_point(colour = "#d23451") + 
+    labs(title = "Year of publication vs date read") +
+    xlab("Date read") +
+    ylab("Year published") + 
+    theme_bw() + 
+    scale_x_date()
+  
+  return(plot_dates)
+}

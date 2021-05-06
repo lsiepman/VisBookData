@@ -22,16 +22,16 @@ vis_page <- div(
               tabPanel("Graphs",
                        sidebarLayout(
                          sidebarPanel(
-                           
+
                            titlePanel("Filter values"),
                            checkboxInput("dateReadFilter", "Filter by date read"),
                            checkboxInput("datePubFilter", "Filter by date published"),
-                           
+
                            sliderInput("DateReadSlider",
                                        "Dates read:",
                                        min = min(as.Date(data$date_read), na.rm = T),
                                        max = max(as.Date(data$date_read), na.rm = T),
-                                       value = c(min(as.Date(data$date_read), na.rm = T), 
+                                       value = c(min(as.Date(data$date_read), na.rm = T),
                                                  max(as.Date(data$date_read), na.rm = T))
 
                          ),
@@ -39,39 +39,41 @@ vis_page <- div(
                                      "Dates published:",
                                      min = min(data$publication_year, na.rm = T),
                                      max = max(data$publication_year, na.rm = T),
-                                     value = c(min(data$publication_year, na.rm = T), 
+                                     value = c(min(data$publication_year, na.rm = T),
                                                max(data$publication_year, na.rm = T)),
                                      sep = "", step = 1
-                                     
+
                          ),
-                         sliderInput("ReadCount", "Read count:", 
+                         sliderInput("ReadCount", "Read count:",
                                      min = min(data$`read count`),
                                      max = max(data$`read count`),
-                                     value = c(min(data$`read count`), 
+                                     value = c(min(data$`read count`),
                                            max(data$`read count`)), step = 1),
-                         
+
                          selectInput("ExclusiveShelves", "Exclusive shelves",
                                      choices = unique(data$`exclusive shelf`),
                                      selected = unique(data$`exclusive shelf`),
                                      multiple = T),
-                         
-                          
+
+
                            p("Include the following shelves:"),
-                           
-                          
-                           lapply(unique(unlist(strsplit(as.character(data$bookshelves), ", "))), 
+
+
+                           lapply(unique(unlist(strsplit(as.character(data$bookshelves), ", "))),
                                   function(shelf){
-                                    checkboxInput(glue("{shelf}ShelfCheckbox"), 
+                                    checkboxInput(glue("{shelf}ShelfCheckbox"),
                                                   glue("{shelf}"), value = T)
                                   })
-                           
-                           
-                           
-                           
-                         
+
+
+
+
+
                           ),
                        mainPanel(style = "background-color:white;",
-                         h1("graphs page")
+                         h1("Graphs"),
+                         br(),
+                         plotOutput("plot_pub_vs_read")
                        )),
                        br(),
                        
