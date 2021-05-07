@@ -13,5 +13,8 @@ server <- function(input, output) {
     change_page("visualisations")
   })
   
-  output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(data)})
+  graph_data <- reactive({data %>% filter(`exclusive shelf` %in% input$ExclusiveShelves)})
+              
+
+    output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(graph_data())})
 }
