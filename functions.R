@@ -32,14 +32,16 @@ process_data <- function(data) {
 
 date_pub_vs_read <- function(data) {
 
-  plot_dates <- ggplot(data, aes(y = publication_year, color = `read count`)) +
+  plot_dates <- ggplot(data, aes(y = as.integer(publication_year), color = `read count`)) +
     labs(title = "Year of publication vs date read") +
     xlab("Date read") +
     ylab("Year published") + 
     theme_bw() + 
     scale_x_date(date_labels = "%Y-%m-%d")
   
-  if (all(nchar(data$date_read) == 0)) {
+  if (nrow(data) == 0){
+    plot_dates <-plot_dates + geom_blank(aes(x = Sys.Date()))
+  } else if (all(nchar(data$date_read) == 0)) {
     plot_dates <-plot_dates + geom_blank(aes(x = Sys.Date()))
   } else {
     plot_dates <-plot_dates + geom_point(aes(x = as.Date(date_read)), colour = "#d23451")

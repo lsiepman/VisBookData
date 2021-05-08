@@ -35,7 +35,7 @@ vis_page <- div(
                                                  max(as.Date(data$date_read), na.rm = T))
 
                          ),
-                         sliderInput("DateReadSlider",
+                         sliderInput("DatePubSlider",
                                      "Dates published:",
                                      min = min(data$publication_year, na.rm = T),
                                      max = max(data$publication_year, na.rm = T),

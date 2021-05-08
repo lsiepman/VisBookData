@@ -14,9 +14,9 @@ server <- function(input, output) {
   })
 
   graph_data <- reactive({ 
-    # browser()
+    # original data
     data %>% 
-      # browser()
+
       # exclusiveShelf selection
       filter(`exclusive shelf` %in% input$ExclusiveShelves) %>% 
       
@@ -28,8 +28,18 @@ server <- function(input, output) {
         } else {
           TRUE
         }
+      ) %>% 
+      
+      # datePublished filtering
+      filter(., if(input$datePubFilter) {
+        between(as.integer(publication_year),
+                as.integer(input$DatePubSlider[1]),
+                as.integer(input$DatePubSlider[2]))
+      } else {
+          TRUE
+      }
       )
-              
+
   })
     output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(graph_data())})
 }
