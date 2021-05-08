@@ -44,7 +44,7 @@ vis_page <- div(
                                      sep = "", step = 1
 
                          ),
-                         sliderInput("ReadCount", "Read count:",
+                         sliderInput("ReadCountSlider", "Read count:",
                                      min = min(data$`read count`),
                                      max = max(data$`read count`),
                                      value = c(min(data$`read count`),

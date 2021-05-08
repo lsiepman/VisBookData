@@ -38,7 +38,15 @@ server <- function(input, output) {
       } else {
           TRUE
       }
-      )
+      ) %>% 
+      
+      # readCount filtering
+      
+      filter(., between(as.integer(`read count`), 
+                        as.integer(input$ReadCountSlider[1]),
+                        as.integer(input$ReadCountSlider[2])
+                        )
+             )
 
   })
     output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(graph_data())})
