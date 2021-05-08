@@ -12,9 +12,24 @@ server <- function(input, output) {
   observeEvent(input$data, {
     change_page("visualisations")
   })
-  
-  graph_data <- reactive({data %>% filter(`exclusive shelf` %in% input$ExclusiveShelves)})
-              
 
+  graph_data <- reactive({ 
+    # browser()
+    data %>% 
+      # browser()
+      # exclusiveShelf selection
+      filter(`exclusive shelf` %in% input$ExclusiveShelves) %>% 
+      
+      # dateRead filtering
+      filter(., if(input$dateReadFilter) {
+         between(as.Date(date_read), 
+                 as.Date(input$DateReadSlider[1]), 
+                 as.Date(input$DateReadSlider[2]))
+        } else {
+          TRUE
+        }
+      )
+              
+  })
     output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(graph_data())})
 }

@@ -37,7 +37,7 @@ date_pub_vs_read <- function(data) {
     xlab("Date read") +
     ylab("Year published") + 
     theme_bw() + 
-    scale_x_date()
+    scale_x_date(date_labels = "%Y-%m-%d")
   
   if (all(nchar(data$date_read) == 0)) {
     plot_dates <-plot_dates + geom_blank(aes(x = Sys.Date()))
