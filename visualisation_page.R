@@ -73,7 +73,8 @@ vis_page <- div(
                        mainPanel(style = "background-color:white;",
                          h1("Graphs"),
                          br(),
-                         plotOutput("plot_pub_vs_read")
+                         plotOutput("plot_pub_vs_read"),
+                         plotOutput("plot_pages_over_time")
                        )),
                        br(),
                        

@@ -50,4 +50,5 @@ server <- function(input, output) {
 
   })
     output$plot_pub_vs_read <- renderPlot({date_pub_vs_read(graph_data())})
+    output$plot_pages_over_time <- renderPlot({num_pages_over_time(graph_data())})
 }

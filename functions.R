@@ -31,22 +31,37 @@ process_data <- function(data) {
 }
 
 date_pub_vs_read <- function(data) {
-
-  plot_dates <- ggplot(data, aes(y = as.integer(publication_year), color = `read count`)) +
+  data <- data %>% filter(`exclusive shelf` == "read")
+  plot_dates <- ggplot(data, aes(y = as.integer(publication_year))) +
     labs(title = "Year of publication vs date read") +
     xlab("Date read") +
     ylab("Year published") + 
     theme_bw() + 
     scale_x_date(date_labels = "%Y-%m-%d") 
-  
-  if (nrow(data) == 0){
-    plot_dates <-plot_dates + geom_blank(aes(x = Sys.Date()))
-  } else if (all(nchar(data$date_read) == 0)) {
-    plot_dates <-plot_dates + geom_blank(aes(x = Sys.Date()))
-  } else {
-    plot_dates <-plot_dates + geom_point(aes(x = as.Date(date_read)), colour = "#d23451")
+
+  if (nrow(data) == 0 || all (nchar(data$date_read) == 0)){
+    plot_dates <- plot_dates + geom_blank(aes(x = Sys.Date()))
+    } else {
+    plot_dates <- plot_dates + geom_point(aes(x = as.Date(date_read)), colour = "#d23451")
   }
   
   
   return(plot_dates)
+}
+
+num_pages_over_time <- function(data) {
+  data <- data %>% 
+    arrange(date_read) %>% 
+    mutate(read_pages = cumsum(`number of pages`))
+  
+  plot_pages <- ggplot(data, aes(x = as.Date(date_read), y = read_pages)) + 
+    geom_step(colour = "#35cee6") + 
+    labs(title = "Number of read pages over time") + 
+    xlab("Time") + 
+    ylab("Number of pages") +
+    theme_bw() +
+    scale_x_date(date_labels = "%Y-%m-%d")
+
+  return(plot_pages)
+  
 }
