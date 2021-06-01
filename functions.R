@@ -65,3 +65,19 @@ num_pages_over_time <- function(data) {
   return(plot_pages)
   
 }
+
+num_books_over_time <- function(data) {
+  data <- data %>% 
+    arrange(date_read) %>% 
+    mutate(num_books = row_number())
+  
+  plot_books <- ggplot(data, aes(x = as.Date(date_read), y = num_books)) +
+    geom_step(colour = "#39f0b6") + 
+    labs(title = "Number of books read over time") + 
+    xlab("Time") + 
+    ylab("Number of books") +
+    theme_bw() +
+    scale_x_date(date_labels = "%Y-%m-%d")
+  
+  return(plot_books)
+}
