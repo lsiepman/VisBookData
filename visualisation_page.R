@@ -75,7 +75,8 @@ vis_page <- div(
                          br(),
                          plotOutput("plot_pub_vs_read"),
                          plotOutput("plot_pages_over_time"),
-                         plotOutput("plot_books_over_time")
+                         plotOutput("plot_books_over_time"),
+                         plotOutput("plot_pages_per_genre")
                        )),
                        br(),
                        

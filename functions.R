@@ -30,6 +30,11 @@ process_data <- function(data) {
            `read count` = `Read Count`)
 }
 
+#' Date published vs date read
+#' 
+#' Show a scattesplot with date published vs date read
+#' @param data dataframe
+#' @return plot
 date_pub_vs_read <- function(data) {
   data <- data %>% filter(`exclusive shelf` == "read")
   plot_dates <- ggplot(data, aes(y = as.integer(publication_year))) +
@@ -49,8 +54,14 @@ date_pub_vs_read <- function(data) {
   return(plot_dates)
 }
 
+#' Number of pages read over time
+#' 
+#' Create a plot with the number of pages read over time
+#' @param data dataframe
+#' @return plot
 num_pages_over_time <- function(data) {
   data <- data %>% 
+    filter(`exclusive shelf` == "read") %>% 
     arrange(date_read) %>% 
     mutate(read_pages = cumsum(`number of pages`))
   
@@ -66,8 +77,14 @@ num_pages_over_time <- function(data) {
   
 }
 
+#' Number of books read over time
+#' 
+#' Create a plot with the number of books read over time
+#' @param data dataframe
+#' @return plot
 num_books_over_time <- function(data) {
   data <- data %>% 
+    filter(`exclusive shelf` == "read") %>% 
     arrange(date_read) %>% 
     mutate(num_books = row_number())
   
@@ -80,4 +97,38 @@ num_books_over_time <- function(data) {
     scale_x_date(date_labels = "%Y-%m-%d")
   
   return(plot_books)
+}
+#' Pages per genre
+#' 
+#' Shows the number of read pages per genre
+#' @param data dataframe
+#' @return plot
+pages_per_genre <- function(data) {
+
+  excl_shelves <- unique(unlist(strsplit(as.character(data$bookshelves), ", ")))
+  excl_shelves<- excl_shelves[!excl_shelves %in% c("currently-reading", "to-read")]
+  
+  page_count <- tibble(excl_shelves, pages = 0)
+  
+  data <- data %>% 
+    filter(`exclusive shelf` == "read") 
+  
+  for (idx in 1:nrow(data)) {
+    curr_shelves <- unlist(strsplit(as.character(data$bookshelves[[idx]]), ", "))
+    for (shelf in excl_shelves){
+      if (shelf %in% curr_shelves){
+        old_val <- as.integer(page_count[page_count$excl_shelves == shelf, "pages"][1])
+        page_count[page_count$excl_shelves == shelf, "pages"] <- old_val + data[idx, "number of pages"]
+      }
+    }
+  }
+  plot_genres <- ggplot(page_count, aes(x = excl_shelves, y = pages)) +
+    geom_bar(stat = "identity", colour = "#35cee6", fill = "#35cee6") +
+    coord_flip() + 
+    theme_bw() + 
+    labs(title = "Number of pages read per genre") + 
+    ylab("Number of pages") +
+    xlab("Genre")
+  
+  return(plot_genres)
 }
