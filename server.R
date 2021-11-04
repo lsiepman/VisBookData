@@ -53,4 +53,6 @@ server <- function(input, output) {
     output$plot_pages_over_time <- renderPlot({num_pages_over_time(graph_data())})
     output$plot_books_over_time <- renderPlot({num_books_over_time(graph_data())})
     output$plot_pages_per_genre <- renderPlot({pages_per_genre(graph_data())})
+    
+    output$global_total_stats <- renderTable({ calc_stats(data)})
 }

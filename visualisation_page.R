@@ -60,7 +60,20 @@ vis_page <- div(
                          ),
                          mainPanel(
                            style = "background-color:white;",
-                           h1("Stats page")
+                           h1("Stats page"),
+                           
+                           h3("Global stats"),
+                           h4("Total stats"),
+                           tableOutput('global_total_stats')
+                           ,
+                           
+                           p("genre stats"),
+                           
+                           h3("Custom stats"),
+                           p("total stats"),
+                           
+                           p("genre stats")
+                           
                          )
                        )
               ),
@@ -110,11 +123,7 @@ vis_page <- div(
                                     checkboxInput(glue("{shelf}ShelfCheckbox"),
                                                   glue("{shelf}"), value = T)
                                   })
-
-
-
-
-
+                         
                           ),
                        mainPanel(style = "background-color:white;",
                          h1("Graphs"),

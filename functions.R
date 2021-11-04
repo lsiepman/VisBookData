@@ -132,3 +132,28 @@ pages_per_genre <- function(data) {
   
   return(plot_genres)
 }
+
+#' calc_stats
+#' 
+#' Calculates number of books and number of pages read (per year) for the data inserted
+#' @param data dataframe with the columns date_read ("%Y/%m/%d") and `number of pages`
+#' @return shiny table
+calc_stats <- function(data){
+  
+  necessary_info <- data %>% 
+    select(date_read, `number of pages`)
+  
+  data_per_year <- necessary_info %>% filter(date_read != "") %>% 
+    mutate(year_read = format(as.Date(date_read, format="%Y/%m/%d"),"%Y")) %>% 
+    group_by(year_read) %>% 
+    summarise(books_read = n(), pages_read = sum(`number of pages`)) %>% 
+    arrange(year_read)
+  
+  
+  total_data <- necessary_info %>% 
+    summarise(books_read = n(), pages_read = sum(`number of pages`)) %>% 
+    mutate(year_read = "Total") %>% relocate(year_read, .before = books_read)
+  
+  result <- rbind(total_data, data_per_year)
+  
+}
